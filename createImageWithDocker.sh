@@ -1,4 +1,5 @@
 #! /bin/bash
+git clone https://github.com/DJones2314/spring-boot-hello-world.git
 mvn clean package
 docker build -t spring-boot-hello-world:latest .
 if $(docker ps -qa) | grep spring-boot-hello-world 
