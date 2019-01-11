@@ -1,0 +1,25 @@
+#!/bin/bash
+if sudo docker ps -a | grep spring-boot
+then
+sudo docker stop spring-boot-hello-world
+sudo docker rm spring-boot-hello-world
+sudo docker rmi spring-boot-hello-world
+fi
+if [ ! -d ~/spring-boot-hello-world ]
+then
+git clone https://github.com/DJones2314/spring-boot-hello-world
+else
+git pull https://github.com/DJones2314/spring-boot-hello-world
+fi
+
+#if $(docker ps -qa) | grep spring-boot-hello-world 
+#then 
+#docker stop $(docker ps -qa)
+#docker rm $(docker ps -qa)
+#fi
+
+#docker rmi $(docker images -q -f dangling=true)
+cd spring-boot-hello-world
+mvn clean package
+sudo docker build -t spring-boot-hello-world:latest .
+sudo docker run -d -p 9000:9000 spring-boot-hello-world
